@@ -61,6 +61,11 @@ It focuses on analyzing a SQL Injection attack captured in a `.pcap` file using 
 > `1=1` is a tautology – it always evaluates to true. When injected into a query, it bypasses login logic.  
 > The double dash `--` is a SQL comment, which effectively disables the rest of the query.
 
+The screenshot below shows the result of the SQL injection test (`1=1`) in packet 13.  
+The application returned a valid user record (`admin`), proving the input was executed as part of a backend SQL query.
+
+![Injection result in TCP stream 1](../resources/screenshots/sql-injection/tcp-stream-1-injection-full-response.jpg)
+
 ---
 
 ### Extracting Database Information
@@ -83,6 +88,10 @@ It focuses on analyzing a SQL Injection attack captured in a `.pcap` file using 
 > The `UNION SELECT` technique is one of the most common ways to extract backend metadata.  
 > Success depends on how the application handles the query result structure.
 
+The screenshot below captures the full response from the server after the `UNION SELECT` injection in stream 3:
+
+![UNION SELECT database and user info](../resources/screenshots/sql-injection/tcp-stream-3-union-select-response.jpg)
+
 ---
 
 ### Revealing System Version
@@ -103,6 +112,10 @@ It focuses on analyzing a SQL Injection attack captured in a `.pcap` file using 
 > **Learning note:**  
 > This is a classic use of `version()` – a built-in function in many SQL engines.  
 > It might not seem dangerous at first, but showing the database version can actually help attackers figure out what kind of exploits might work.
+
+Screenshot from stream 4:
+
+![Database version from SQL injection](../resources/screenshots/sql-injection/tcp-stream-4-version-response.jpg)
 
 ---
 
