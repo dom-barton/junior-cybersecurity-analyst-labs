@@ -80,13 +80,12 @@ The application returned a valid user record (`admin`), proving the input was ex
 
 - The server returns multiple rows containing values such as:
   - `First name: dvwa`
-  - `Surname: Me`, `Smith`, etc.
-
-- While the structure of the response suggests that `dvwa` is likely the database name, **no actual database user string like `root@localhost` is visible** in the response.
+  - `Surname: root@localhost`
+- This confirms that the **database name** is `dvwa`, and the **user currently connected** is `root@localhost`. These are valuable pieces of information that an attacker can use to understand the database structure or privileges.
 
 > **Learning note:**  
 > The `UNION SELECT` technique is one of the most common ways to extract backend metadata.  
-> Success depends on how the application handles the query result structure.
+> When it works, the attacker can often see the results directly in the application response — like database name, user, or even table content.
 
 The screenshot below captures the full response from the server after the `UNION SELECT` injection in stream 3:
 
